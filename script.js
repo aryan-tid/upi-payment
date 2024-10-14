@@ -33,7 +33,7 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
-	document.addEventListener("keydown", e => {
+	/*document.addEventListener("keydown", e => {
   // USE THIS TO DISABLE CONTROL AND ALL FUNCTION KEYS
   // if (e.ctrlKey || (e.keyCode>=112 && e.keyCode<=123)) {
   // THIS WILL ONLY DISABLE CONTROL AND F12
@@ -41,7 +41,7 @@ window.onclick = function(event) {
     e.stopPropagation();
     e.preventDefault();
   }
-});
+});*/
 
 document.addEventListener("contextmenu", e => e.preventDefault(), false);
 const nameInput = document.getElementById('name');
@@ -63,21 +63,32 @@ payNowButton.addEventListener('click', () => {
 	}
 });
 showQRButton.addEventListener('click', () => {
-	if(validateForm()) {
-		const enteredName = nameInput.value;
-		const enteredAmount = amountInput.value;
-		const enteredNote = noteInput.value;
-		// Construct the payment link
-		const paymentLink = `upi://pay?pa=aryan9356@ybl&am=${enteredAmount}&tn=Paid by ${enteredName} with note ${enteredNote}`;
-		// Construct the QR code
-		const paymentQR = `https://quickchart.io/qr?text=${encodeURIComponent(paymentLink)}`;
-		// Set the src attribute of the QR code image
-		document.getElementById('paymentQRCode').src = paymentQR;
-		// Set the payment amount in the modal
-		document.getElementById('paymentAmount').textContent = `Amount: ${enteredAmount}`;
-		// Show the modal
-		qrCodeModal.style.display = 'block';
-	}
+  if (validateForm()) {
+      const enteredName = nameInput.value;
+      const enteredAmount = amountInput.value;
+      const enteredNote = noteInput.value;
+
+      // Construct the payment link
+      const paymentLink = `upi://pay?pa=aryan9356@ybl&am=${enteredAmount}&tn=Paid by ${enteredName} with note ${enteredNote}`;
+
+      // Show loading overlay
+      document.getElementById('loadingOverlay').style.display = 'flex';
+
+      // Construct the QR code
+      const paymentQR = `https://quickchart.io/qr?text=${encodeURIComponent(paymentLink)}`;
+      // Set the src attribute of the QR code image
+      document.getElementById('paymentQRCode').src = paymentQR;
+
+      // Load the QR code image and hide the loading overlay when it's loaded
+      const qrCodeImage = document.getElementById('paymentQRCode');
+      qrCodeImage.onload = () => {
+          document.getElementById('loadingOverlay').style.display = 'none'; // Hide loading overlay
+          // Set the payment amount in the modal
+          document.getElementById('paymentAmount').textContent = `Amount: ${enteredAmount}`;
+          // Show the modal
+          qrCodeModal.style.display = 'block';
+      };
+  }
 });
 modalClose.addEventListener('click', () => {
 	qrCodeModal.style.display = 'none';
@@ -104,3 +115,68 @@ function validateForm() {
         return false;
     }
 }
+// Function to get URL parameters
+function getUrlParams() {
+  const params = {};
+  const queryString = window.location.search.substring(1);
+  const queryArray = queryString.split("&");
+  
+  queryArray.forEach(param => {
+      const [key, value] = param.split("=");
+      params[decodeURIComponent(key)] = decodeURIComponent(value || "");
+  });
+
+  return params;
+}
+
+function prefillForm() {
+  const urlParams = getUrlParams();
+
+  // Prefill the form inputs with URL parameters
+  if (urlParams['name']) {
+      document.getElementById('name').value = urlParams['name'];
+  }
+  if (urlParams['am']) {
+      document.getElementById('amountToPay').value = urlParams['am'];
+  }
+  if (urlParams['note']) {
+      document.getElementById('note').value = urlParams['note'];
+  }
+
+  // Check if all required fields are filled
+  if (urlParams['name'] && urlParams['am'] && urlParams['note']) {
+      // Programmatically trigger a click on the submit button
+      submitButton.click();
+  }
+}
+
+
+// Call prefillForm on page load
+document.addEventListener('DOMContentLoaded', prefillForm);
+
+form.addEventListener('submit', e => {
+  submitButton.disabled = true;
+  e.preventDefault();
+  document.getElementById('loadingOverlay').style.display = 'flex'; // Show loading overlay
+
+  let requestBody = new FormData(form);
+  fetch('https://script.google.com/macros/s/AKfycbxbPqP15KDrCXagGpCt7uyjbbsn8SrGX3fkw-ZPmUGut16IRUihC-dPjV21L0wkSDfL/exec', {
+      method: 'POST',
+      body: requestBody
+  })
+  .then(response => {
+      if (response.ok) {
+          modal.style.display = "block";
+      } else {
+          throw new Error('Network response was not ok.');
+      }
+      submitButton.disabled = false;
+      document.getElementById('loadingOverlay').style.display = 'none'; // Hide loading overlay
+  })
+  .catch(error => {
+      alert('Error! Unable to submit your data. Please try again later.');
+      console.error('Error:', error);
+      submitButton.disabled = false;
+      document.getElementById('loadingOverlay').style.display = 'none'; // Hide loading overlay
+  });
+});
