@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Make a Payment to Aryan">
+    <meta property="og:description" content="You can make payment to Aryan a.k.a. Siddhivinayak Balaji Tidake upto Rs.1 Lakh through this website.">
+    <meta property="og:image" content="meta-upi.png">
+    <meta name="theme-color" content="#3E0064">
+    <title>Payment</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+<body>
+  <div class="bg"></div>
+  <div class="bg bg2"></div>
+  <div class="bg bg3"></div>
+	<form id="paymentForm">
+      <div class="recipient-details">
+        <p>You are Paying to - Tidake Siddhivinayak Balaji <i class="fas fa-check-circle verified-mark"></i>
+        </p>
+      </div>
+      <h2>Make a Payment</h2>
+      <label for="name">Name:</label>
+      <div class="error-message" id="#"></div>
+      <input type="text" id="name" name="Name" placeholder="Enter your name">
+      <p></p>
+      <p></p>
+      <label for="amountToPay">Amount to Pay:</label>
+      <div class="error-message" id="amountErrorMessage"></div>
+      <input type="number" id="amountToPay" name="Amount To Pay" placeholder="Enter amount" required>
+      <p></p>
+      <p></p>
+      <label for="note">Note:</label>
+      <div class="error-message" id="#"></div>
+      <textarea id="note" name="Note" placeholder="Enter a note"></textarea>
+      <input type="hidden" id="Status" name="Status" value="Pending">
+      	<button id="submit" style="width: 100%;" type="submit">Submit Details</button>
+         <p>After Clicking on Submit wait for few seconds...</p>
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>&ensp;</p>
+     <p>Your transaction Details are succesfully stored on server now you can complete the payment</p>
+	  <div style="text-align: center;">
+        <button type="button" style="width: 100%;" id="payNowButton">
+	  <img src="upi.png"
+          <h> Pay via UPI</h>
+        </button>
+        <p></p>
+        <button type="button" style="width: 100%;" id="showQRButton">
+          <i class="fas fa-qrcode"></i>
+          <h></h> Show QR Code
+        </button>
+      </div>
+  </div>
+</div>
+      <!-- The modal popup for displaying the QR code -->
+      <div id="qrCodeModal" class="modal">
+        <div class="modal-content">
+          <span class="modal-close">&times;</span>
+          <p>&ensp;</p>
+          <h2>Scan QR Code with Any UPI app</h2>
+          <img id="paymentQRCode" src="" alt="Payment QR Code">
+          <div class="amount" id="paymentAmount"></div>
+        </div>
+      </div>
+    </form>
+    <script src="script.js"></script>
+  </body>
+</html>
