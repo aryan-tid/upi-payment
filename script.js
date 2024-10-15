@@ -105,28 +105,29 @@ function validateForm() {
 
 // Event listener for 'Pay Now' button
 payNowButton.addEventListener('click', () => {
-  // Validate the form before processing the payment
-  if (validateForm()) {
-      const enteredName = nameInput.value;
-      const enteredAmount = amountInput.value;
-      const enteredNote = noteInput.value;
-
-      // Construct the payment link using UPI scheme
-      const basePaymentLink = `pay?pa=aryan9356@ybl&am=${enteredAmount}&tn=Paid by ${enteredName} with note ${enteredNote}`;
-
-      //Show Payment Options
-      paymentOptions.classList.remove('hidden');
-      document.getElementById('paymentAmount').textContent = `Amount: ${enteredAmount}`;
-    }
+  paymentOptions.classList.remove('hidden');
 });
 
 // Function to open the respective UPI link
 function openUPILink(prefix) {
-  // Create the full UPI link
+  // Validate the form before processing the payment
+  if (validateForm()) {
+    const enteredName = nameInput.value;
+    const enteredAmount = amountInput.value;
+    const enteredNote = noteInput.value;
+
+    // Construct the payment link using UPI scheme
+    const basePaymentLink = `pay?pa=aryan9356@ybl&am=${enteredAmount}&tn=Paid by ${enteredName} with note ${enteredNote}`;
+
+    //Show Payment Options
+    document.getElementById('paymentAmount').textContent = `Amount: ${enteredAmount}`;
+    // Create the full UPI link
   const fullLink = `${prefix}${basePaymentLink}`;
 
   // Open the link
+  console.log(fullLink)
   window.location.href = fullLink;
+  }
 }
 
 // Event listener for 'Show QR Code' button
