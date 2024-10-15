@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Payment Redirect</title>
+    <style>
+        /* Hide everything on the page */
+        body {
+            display: none;
+        }
+    </style>
+    <script>
+        // Function to retrieve URL parameters
+        function getUrlParams() {
+            const params = {};
+            const queryString = window.location.search.substring(1);
+            const queryArray = queryString.split("&");
+
+            queryArray.forEach(param => {
+                const [key, value] = param.split("=");
+                params[decodeURIComponent(key)] = decodeURIComponent(value || "");
+            });
+
+            return params;
+        }
+
+        // Function to prefill the form based on URL parameters and redirect to UPI link
+        function prefillForm() {
+            const urlParams = getUrlParams();
+
+            const nameInput = urlParams['name'];
+            const amountInput = urlParams['am'];
+            const upiAddressInput = urlParams['pa'];
+            const noteInput = urlParams['note'];
+
+            if (nameInput && amountInput && upiAddressInput) {
+                const paymentLink = `upi://pay?pa=${upiAddressInput}&am=${amountInput}&tn=${noteInput}`;
+                window.location.href = paymentLink; // Redirect to the UPI link
+            }
+        }
+
+        // Run prefillForm when the page loads
+        document.addEventListener('DOMContentLoaded', prefillForm);
+    </script>
+</head>
+<body>
+    <!-- Everything runs in the background -->
+</body>
+</html>
