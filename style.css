@@ -43,22 +43,31 @@
 	  }
 body {
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	background: linear-gradient(to bottom right, #4c0082, #00000000);
 	color: #aaa;
 	margin: 0;
-	padding: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
+	height: 110vh;
+}
+.padder {
+	padding: 20px 0px;
 }
 
-form {
+#imageRowIdPadder {
+	padding-bottom: 20px;
+}
+
+#step1,#step2 {
 	max-width: 300px;
-	padding: 35px;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-bottom: 20px;
+	padding-top: 10px;
 	background: #3a1237ab;
 	border-radius: 20px;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+	margin-top: 30px;
 }
 
 h2 {
@@ -106,6 +115,13 @@ textarea:focus {
 	border-color: #007bff;
 }
 
+button#payWithAnotherApp{
+	border: 1px solid #b35100;
+	color: #dfae86;
+}
+button#payWithAnotherApp:hover{
+	background-color: #b85a0c;
+}
 button {
 	background-color: transparent;
 	color: #95c6fc;
@@ -129,67 +145,27 @@ button:hover {
 	border-color: #0056b3;
 }
 
-/* Styles for the QR code popup modal */
-.modal {
-	display: none;
-	position: fixed;
-	z-index: 1;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: rgba(0, 0, 0, 0);
+#paymentOptions {
+	flex-direction: column; /* Stack images vertically */
+	align-items: center; /* Center images horizontally */
+	gap: 1rem; /* Gap between rows */
 }
 
-.modal-content {
-	background: #3a1237;
-	color: #aaa;
-    margin: 15% auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 290px;
-	border-radius: 20px;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	text-align: center;
-	color: #fff;
+.image-row {
+	display: flex; /* Use flexbox for rows */
+	justify-content: center; /* Center images in the row */
+	gap: 1.5rem; /* Gap between images */
+}
+.image-row img {
+    border-radius: 15px; /* More pronounced rounding for images in specific sections */
+	border: 2px solid #fff;
+	padding: 0.3rem;
 }
 
-.modal-close {
-	position: fixed;
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-}
-
-.modal-close:hover {
-	position: fixed;
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
+#BHIM,#PayZapp, #Mobikwik, #AmazonPay, #Paytm, #GPay {
+	max-width: 3rem;
+	height: auto;
     cursor: pointer;
-}
-.close {
-	position: fixed;
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-    cursor: pointer;
-}
-
-.close:hover {
-	position: fixed;
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-    cursor: pointer;
-}
-.modal-close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
 }
 
 #paymentQRCode {
@@ -232,4 +208,7 @@ input[type="number"].invalid {
   .loading-content {
 	text-align: center;
   }
-  
+
+.hidden {
+	display: none;
+}

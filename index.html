@@ -13,71 +13,96 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
 <body>
+  <div class="padder" id="padder">
+    <div><p>&#8195</p></div>
+  <!--loading bar-->
+  <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+    <div class="loading-content">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150">
+        <path fill="none" stroke="#922D8A" stroke-width="30" stroke-linecap="round" stroke-dasharray="300 385" stroke-dashoffset="0" d="M275 75c0 31-27 50-50 50-58 0-92-100-150-100-28 0-50 22-50 50s23 50 50 50c58 0 92-100 150-100 24 0 50 19 50 50Z">
+          <animate attributeName="stroke-dashoffset" calcMode="spline" dur="2" values="685;-685" keySplines="0 0 1 1" repeatCount="indefinite"></animate>
+        </path>
+      </svg>
+      <p>Loading, please wait...</p>
+    </div>
+  </div>
   <div class="bg"></div>
   <div class="bg bg2"></div>
   <div class="bg bg3"></div>
-	<form id="paymentForm">
-      <div class="recipient-details">
-        <p>You are Paying to - Tidake Siddhivinayak Balaji <i class="fas fa-check-circle verified-mark"></i>
-        </p>
-      </div>
+
+<form id="paymentForm">
+  <div id="step1">
+    <div class="recipient-details">
+      <p>You are Paying to - Tidake Siddhivinayak Balaji <i class="fas fa-check-circle verified-mark"></i></p>
+    </div>
       <h2>Make a Payment</h2>
-      <label for="name">Name:</label>
-      <div class="error-message" id="#"></div>
-      <input type="text" id="name" name="Name" placeholder="Enter your name">
-      <p></p>
-      <p></p>
-      <label for="amountToPay">Amount to Pay:</label>
-      <div class="error-message" id="amountErrorMessage"></div>
-      <input type="number" id="amountToPay" name="Amount To Pay" placeholder="Enter amount" required>
-      <p></p>
-      <p></p>
-      <label for="note">Note:</label>
-      <div class="error-message" id="#"></div>
-      <textarea id="note" name="Note" placeholder="Enter a note"></textarea>
-      <input type="hidden" id="Status" name="Status" value="Pending">
-      	<button id="submit" style="width: 100%;" type="submit">Submit Details</button>
-         <p>After Clicking on Submit wait for few seconds...</p>
-         <!--loading bar-->
-         <div id="loadingOverlay" class="loading-overlay" style="display: none;">
-          <div class="loading-content">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150">
-              <path fill="none" stroke="#922D8A" stroke-width="30" stroke-linecap="round" stroke-dasharray="300 385" stroke-dashoffset="0" d="M275 75c0 31-27 50-50 50-58 0-92-100-150-100-28 0-50 22-50 50s23 50 50 50c58 0 92-100 150-100 24 0 50 19 50 50Z">
-                <animate attributeName="stroke-dashoffset" calcMode="spline" dur="2" values="685;-685" keySplines="0 0 1 1" repeatCount="indefinite"></animate>
-              </path>
-            </svg>
-            <p>Loading, please wait...</p>
-          </div>
-        </div>        
-<div id="myModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>&ensp;</p>
+        <label for="name">Name:</label>
+          <div class="error-message" id="#"></div>
+          <input type="text" id="name" name="Name" placeholder="Enter your name">
+          <p></p>
+          <p></p>
+        <label for="amountToPay">Amount to Pay:</label>
+          <div class="error-message" id="amountErrorMessage"></div>
+          <input type="number" id="amountToPay" name="Amount To Pay" placeholder="Enter amount" required>
+          <p></p>
+          <p></p>
+        <label for="note">Note:</label>
+          <div class="error-message" id="#"></div>
+          <textarea id="note" name="Note" placeholder="Enter a note"></textarea>
+        <input type="hidden" id="Status" name="Status" value="Pending">
+        
+        <button id="submit" style="width: 100%;" type="submit">Submit Details</button>
+          <p>After Clicking on Submit wait for few seconds...</p>
+  </form> 
+</div>
+
+<div id="step2" class="hidden">
      <p>Your transaction Details are succesfully stored on server now you can complete the payment</p>
 	  <div style="text-align: center;">
+      <h2>Pay with Any UPI app (Recommended GPay)</h2>
         <button type="button" style="width: 100%;" id="payNowButton">
 	  <img src="upi.png"
-          <h> Pay via UPI</h>
+          <h> Pay via UPI App</h>
         </button>
+        <div id="paymentOptions" class="hidden">
+          <div class="amount" id="paymentAmount"></div>
+          <p></p>
+          <div class="image-row">
+            <img id="GPay" src="./gpay.svg" alt="Google Pay" style="cursor: pointer;" 
+            onclick="openUPILink('tez://upi/')">
+            <img id="BHIM" src="./bhim.svg" alt="BHIM" style="cursor: pointer;" 
+            onclick="openUPILink('bhim://upi/')">
+            <img id="Paytm" src="./paytm.svg" alt="Paytm"  style="cursor: pointer;" 
+            onclick="openUPILink('paytmmp://')">
+          </div>
+<p></p>
+          <div class="image-row" id="imageRowIdPadder">
+            <img id="AmazonPay" src="./amazonpay.svg" alt="AmazonPay" style="cursor: pointer;" 
+            onclick="openUPILink('amazonpay://')">
+            <img id="Mobikwik" src="./mobikwik.svg" alt="Mobikwik" style="cursor: pointer;" 
+            onclick="openUPILink('mobikwik://')">
+            <img id="PayZapp" src="./payzapp.png" alt="PayZapp" style="cursor: pointer;" 
+            onclick="openUPILink('payzapp://upi/')">
+          </div>
+          <button type="button" style="width: 75%;" id="payWithAnotherApp">
+            <i onclick="openUPILink('upi://')"></i>
+            <h></h> Pay with other UPI App
+          </button>
+        </div>
         <p></p>
         <button type="button" style="width: 100%;" id="showQRButton">
           <i class="fas fa-qrcode"></i>
           <h></h> Show QR Code
         </button>
-      </div>
-  </div>
-</div>
-      <!-- The modal popup for displaying the QR code -->
-      <div id="qrCodeModal" class="modal">
-        <div class="modal-content">
-          <span class="modal-close">&times;</span>
-          <p>&ensp;</p>
+        <div id="showQR" class="hidden">
           <h2>Scan QR Code with Any UPI app</h2>
           <img id="paymentQRCode" src="" alt="Payment QR Code">
           <div class="amount" id="paymentAmount"></div>
         </div>
       </div>
-    </form>
+  </div>
+</div>
+</div>
     <script src="script.js"></script>
   </body>
 </html>
