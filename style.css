@@ -64,7 +64,7 @@ body {
 	padding-right: 30px;
 	padding-bottom: 20px;
 	padding-top: 10px;
-	background: #3a1237ab;
+	background: #3a1237d2;
 	border-radius: 20px;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
 	margin-top: 30px;
@@ -211,4 +211,8 @@ input[type="number"].invalid {
 
 .hidden {
 	display: none;
+}
+
+.loader {
+	color: #fff;
 }

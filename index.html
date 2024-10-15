@@ -23,7 +23,7 @@
           <animate attributeName="stroke-dashoffset" calcMode="spline" dur="2" values="685;-685" keySplines="0 0 1 1" repeatCount="indefinite"></animate>
         </path>
       </svg>
-      <p>Loading, please wait...</p>
+      <p class="loader">Loading, please wait...</p>
     </div>
   </div>
   <div class="bg"></div>
@@ -84,8 +84,7 @@
             <img id="PayZapp" src="./payzapp.png" alt="PayZapp" style="cursor: pointer;" 
             onclick="openUPILink('payzapp://upi/')">
           </div>
-          <button type="button" style="width: 75%;" id="payWithAnotherApp">
-            <i onclick="openUPILink('upi://')"></i>
+          <button type="button" style="width: 75%;" id="payWithAnotherApp" onclick="openUPILink('upi://')">
             <h></h> Pay with other UPI App
           </button>
         </div>
