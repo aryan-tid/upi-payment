@@ -48,10 +48,11 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 110vh;
+	height: 100vh;
 }
 .padder {
-	padding: 20px 0px;
+	padding-top: 60px;
+	padding-bottom: 20px;
 }
 
 #imageRowIdPadder {
